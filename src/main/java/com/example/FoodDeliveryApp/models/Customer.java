@@ -32,7 +32,7 @@ public class Customer {
     String address;
 
     @Column(nullable = false)
-    int mobNo;
+    String mobNo;
 
     @Enumerated(EnumType.STRING)
     Gender gender;
