@@ -1,13 +1,19 @@
 package com.example.FoodDeliveryApp.services;
 
 import com.example.FoodDeliveryApp.dto.request.RestaurantRequest;
+import com.example.FoodDeliveryApp.dto.request.addFoodToMenuRequest;
+import com.example.FoodDeliveryApp.dto.response.FoodResponse;
 import com.example.FoodDeliveryApp.dto.response.RestaurantResponse;
+import com.example.FoodDeliveryApp.models.FoodItem;
 import com.example.FoodDeliveryApp.models.Restaurant;
 import com.example.FoodDeliveryApp.repositories.RestaurantRepository;
+import com.example.FoodDeliveryApp.transformers.FoodTransformer;
 import com.example.FoodDeliveryApp.transformers.RestaurantTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -108,5 +114,47 @@ public class RestaurantService {
         catch( Exception e){
             throw new Exception("unable to delete the restaurant");
         }
+    }
+
+    public RestaurantResponse addFoodTomenu(addFoodToMenuRequest addFoodToMenuRequest) throws Exception {
+
+        try{
+            Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(addFoodToMenuRequest.getRestaurantId() );
+
+            if(optionalRestaurant.isEmpty()) throw new Exception("no restaurant with such id exist");
+
+            FoodItem foodItem = FoodTransformer.foodItemRequestToFoodItem(addFoodToMenuRequest );
+            foodItem.setRestaurant(optionalRestaurant.get());
+
+            optionalRestaurant.get().getFoodItems().add(foodItem);
+
+            Restaurant restaurant = restaurantRepository.save( optionalRestaurant.get() );
+
+            return RestaurantTransformer.restaurantToRestaurantResponse( restaurant );
+
+        }
+        catch (Exception e ){
+            throw new Exception("unable add to foodItem to menu");
+        }
+    }
+
+    public List<FoodResponse> getAllVegFoodItems(int restaurantId, boolean veg) throws Exception {
+
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(  restaurantId );
+
+        if(optionalRestaurant.isEmpty()) throw new Exception("not resturant with such id exist");
+
+        List<FoodResponse> foodResponseList = new ArrayList<>();
+
+        for( FoodItem foodItem: optionalRestaurant.get().getFoodItems()){
+
+           if( foodItem.isVeg() == veg ) {
+               FoodResponse foodResponse = FoodTransformer.foofItemToFoodResponse(foodItem);
+
+               foodResponseList.add(foodResponse);
+           }
+        }
+
+        return foodResponseList;
     }
 }

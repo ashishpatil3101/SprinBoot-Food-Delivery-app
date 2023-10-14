@@ -2,6 +2,8 @@ package com.example.FoodDeliveryApp.Controllers;
 
 
 import com.example.FoodDeliveryApp.dto.request.RestaurantRequest;
+import com.example.FoodDeliveryApp.dto.request.addFoodToMenuRequest;
+import com.example.FoodDeliveryApp.dto.response.FoodResponse;
 import com.example.FoodDeliveryApp.dto.response.RestaurantResponse;
 import com.example.FoodDeliveryApp.models.Restaurant;
 import com.example.FoodDeliveryApp.services.RestaurantService;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -75,7 +78,7 @@ public class RestaurantController {
             return new ResponseEntity( result, HttpStatus.OK);
         }
         catch (Exception e ){
-            return new ResponseEntity<>(e , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage() , HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -89,7 +92,34 @@ public class RestaurantController {
             return new ResponseEntity( result, HttpStatus.OK);
         }
         catch (Exception e ){
-            return new ResponseEntity<>(e , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage() , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/food/add")
+    public ResponseEntity addFoodToMenu(@RequestBody addFoodToMenuRequest addFoodToMenuRequest){
+
+        try{
+
+            RestaurantResponse  restaurantResponse= restaurantService.addFoodTomenu(addFoodToMenuRequest);
+            return new ResponseEntity<>( restaurantResponse ,HttpStatus.CREATED );
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage() , HttpStatus.BAD_REQUEST );
+        }
+    }
+
+    @GetMapping("/food/veg")
+    public  ResponseEntity getAllVegORNonVegFoodItems(@RequestParam("id")int restaurantId,@RequestParam("veg")boolean veg){
+
+        try{
+            List<FoodResponse> foodResponseList = restaurantService.getAllVegFoodItems(restaurantId , veg);
+
+            return new ResponseEntity<>( foodResponseList, HttpStatus.OK );
+        }
+        catch (Exception e ){
+
+            return new ResponseEntity<>( e.getMessage(), HttpStatus.OK );
         }
     }
 }
