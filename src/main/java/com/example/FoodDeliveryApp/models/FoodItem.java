@@ -30,4 +30,8 @@ public class FoodItem {
     @JoinColumn
     MenuItem menuItem;
 
+    @ManyToOne
+    @JoinColumn
+    OrderEntity order;
+
 }

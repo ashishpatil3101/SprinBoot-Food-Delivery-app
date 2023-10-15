@@ -1,11 +1,10 @@
 package com.example.FoodDeliveryApp.repositories;
 
-import com.example.FoodDeliveryApp.models.Customer;
+import com.example.FoodDeliveryApp.models.FoodItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface FoodRepository extends JpaRepository<FoodItem ,Integer> {
 
-    public Customer findByEmail(String email);
 }

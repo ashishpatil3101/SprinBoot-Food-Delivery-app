@@ -48,5 +48,7 @@ public class OrderEntity {
     @JoinColumn
     Restaurant restaurant;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    List<FoodItem> foodItemList=  new ArrayList<>();
 
 }
