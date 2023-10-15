@@ -2,8 +2,6 @@ package com.example.FoodDeliveryApp.dto.request;
 
 
 import com.example.FoodDeliveryApp.Enum.FoodCategory;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -13,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class addFoodToMenuRequest {
+public class AddMenuItemRequest {
 
     int restaurantId;
 

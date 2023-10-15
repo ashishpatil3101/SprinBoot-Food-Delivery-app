@@ -1,5 +1,6 @@
 package com.example.FoodDeliveryApp.dto.response;
 
+import com.example.FoodDeliveryApp.models.FoodItem;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,5 +16,5 @@ public class CartResponse {
 
     int cartTotal;
 
-    List<FoodResponse> foodItems;
+    List<FoodItem> foodItems;
 }

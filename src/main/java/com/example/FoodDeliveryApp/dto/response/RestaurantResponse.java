@@ -22,5 +22,5 @@ public class RestaurantResponse {
 
     String contactNumber;
 
-    List<FoodResponse> menu;
+    List<MenuResponse> menu;
 }

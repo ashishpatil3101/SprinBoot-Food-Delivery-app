@@ -1,7 +1,6 @@
 package com.example.FoodDeliveryApp.models;
 
 
-import com.example.FoodDeliveryApp.Enum.FoodCategory;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,25 +18,16 @@ public class FoodItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String dishName;
-    @Enumerated(EnumType.STRING)
-    FoodCategory foodCategory;
+    int requiredQuantity;
 
-   int price;
+    int totalCost;
 
-   boolean available;
-
-   boolean veg;
-
-   @ManyToOne
-   @JoinColumn
-   Restaurant restaurant;
-
-   @ManyToOne
-   @JoinColumn
-   Cart cart;
-
-   @ManyToOne
+    @ManyToOne
     @JoinColumn
-    OrderEntity orderEntity;
+    Cart cart;
+
+    @ManyToOne
+    @JoinColumn
+    MenuItem menuItem;
+
 }

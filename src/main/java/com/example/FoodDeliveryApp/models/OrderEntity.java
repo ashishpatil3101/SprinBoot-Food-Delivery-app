@@ -43,8 +43,6 @@ public class OrderEntity {
     @JoinColumn
     Customer customer;
 
-    @OneToMany( mappedBy = "orderEntity" , cascade = CascadeType.ALL )
-    List<FoodItem> foodItems = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn

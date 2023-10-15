@@ -2,7 +2,6 @@ package com.example.FoodDeliveryApp.models;
 
 
 import com.example.FoodDeliveryApp.Enum.RestaurantCategory;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -37,7 +36,7 @@ public class Restaurant {
     String contactNumber;
 
     @OneToMany(mappedBy = "restaurant",cascade =  CascadeType.ALL )
-    List<FoodItem> foodItems = new ArrayList<>();
+    List<MenuItem> menuItems = new ArrayList<>();
 
     @OneToMany( mappedBy = "restaurant" , cascade =  CascadeType.ALL)
     List<OrderEntity> orders = new ArrayList<>();

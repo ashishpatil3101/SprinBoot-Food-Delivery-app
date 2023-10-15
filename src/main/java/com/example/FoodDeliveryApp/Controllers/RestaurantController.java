@@ -2,17 +2,15 @@ package com.example.FoodDeliveryApp.Controllers;
 
 
 import com.example.FoodDeliveryApp.dto.request.RestaurantRequest;
-import com.example.FoodDeliveryApp.dto.request.addFoodToMenuRequest;
-import com.example.FoodDeliveryApp.dto.response.FoodResponse;
+import com.example.FoodDeliveryApp.dto.request.AddMenuItemRequest;
+import com.example.FoodDeliveryApp.dto.response.MenuResponse;
 import com.example.FoodDeliveryApp.dto.response.RestaurantResponse;
-import com.example.FoodDeliveryApp.models.Restaurant;
 import com.example.FoodDeliveryApp.services.RestaurantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -97,11 +95,11 @@ public class RestaurantController {
     }
 
     @PostMapping("/food/add")
-    public ResponseEntity addFoodToMenu(@RequestBody addFoodToMenuRequest addFoodToMenuRequest){
+    public ResponseEntity addFoodToMenu(@RequestBody AddMenuItemRequest AddMenuItemRequest){
 
         try{
 
-            RestaurantResponse  restaurantResponse= restaurantService.addFoodTomenu(addFoodToMenuRequest);
+            RestaurantResponse  restaurantResponse= restaurantService.addFoodTomenu(AddMenuItemRequest);
             return new ResponseEntity<>( restaurantResponse ,HttpStatus.CREATED );
         }
         catch (Exception e){
@@ -113,9 +111,9 @@ public class RestaurantController {
     public  ResponseEntity getAllVegORNonVegFoodItems(@RequestParam("id")int restaurantId,@RequestParam("veg")boolean veg){
 
         try{
-            List<FoodResponse> foodResponseList = restaurantService.getAllVegFoodItems(restaurantId , veg);
+            List<MenuResponse> menuResponseList = restaurantService.getAllVegFoodItems(restaurantId , veg);
 
-            return new ResponseEntity<>( foodResponseList, HttpStatus.OK );
+            return new ResponseEntity<>(menuResponseList, HttpStatus.OK );
         }
         catch (Exception e ){
 
