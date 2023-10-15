@@ -29,8 +29,8 @@ public class DeliveryPartner {
     @Column(unique = true)
     String email;
 
-    @Column(nullable = false)
-    int mobNo;
+    @Column(nullable = false,unique = true)
+    String mobNo;
 
     @Enumerated( EnumType.STRING)
     Gender gender;

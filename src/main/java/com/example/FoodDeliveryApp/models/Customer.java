@@ -31,7 +31,7 @@ public class Customer {
 
     String address;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     String mobNo;
 
     @Enumerated(EnumType.STRING)

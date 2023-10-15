@@ -33,6 +33,7 @@ public class Restaurant {
 
     boolean open;
 
+    @Column(nullable = false,unique = true)
     String contactNumber;
 
     @OneToMany(mappedBy = "restaurant",cascade =  CascadeType.ALL )
